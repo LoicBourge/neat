@@ -9,6 +9,4 @@ Neat Implementation Exemple by Samuel Hiard
 
 https://github.com/vishnugh/evo-NEAT/tree/master/src
 
-https://dev.to/n8python/attempting-and-sort-of-succeeding-to-implement-neat-in-javascript-2ea6
-
 https://www.youtube.com/watch?v=vvSjJZDPQVc
