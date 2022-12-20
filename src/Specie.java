@@ -195,6 +195,12 @@ public class Specie {
 		}
 	}
 
+	// delta = (C1 * E) / N + (C2 * D) / N + C3 * W
+	// C1, C2, C3 sont des coefficients à ajuster (dans exemple : 2, 2, 0.5)
+	// N = nombre de gènes du génome le plus grand
+	// E = nombre de gènes supplémentaires (excessifs)
+	// D = nombre de gènes disjoints
+	// W = différence de poids moyenne sur les gènes communs
 	// Permet de calculer l'ANN qui deviendra le nouveau membre représentatif de l'espèce
 	public void calcFirstANN(ANN firstMembre) {
 		// On teste la distance avec le premier membre de l'espèce (son créateur)
@@ -204,12 +210,7 @@ public class Specie {
 		for (int i = 0; i < ANNs.size(); i++) {
 			ANN genomeAComparer = ANNs.get(i);
 
-			// delta = (C1 * E) / N + (C2 * D) / N + C3 * W
-			// C1, C2, C3 sont des coefficients à ajuster (dans exemple : 2, 2, 0.5)
-			// N = nombre de gènes du génome le plus grand
-			// E = nombre de gènes supplémentaires (excessifs)
-			// D = nombre de gènes disjoints
-			// W = différence de poids moyenne sur les gènes communs
+
 
 			int n = getLargerANN();
 
@@ -234,9 +235,6 @@ public class Specie {
 				delta = (C1 * e) / n + (C2 * d) / n + C3 * w;
 			}
 
-			//System.out.println("Distanciation : n = " + n + " | e = " + e + " | d = " + d + " | w = " + w);
-			//System.out.println("Delta = " + delta);
-			//System.out.println("Threshold = " + thresholdDistanciation);
 
 			deltas.add(delta);
 			genomes.add(i);
@@ -246,7 +244,6 @@ public class Specie {
 		double deltaMin = Collections.min(deltas); // Mettre l'enfant dans l'espèce qui a le delta minimum
 		int index = genomes.get(deltas.indexOf(deltaMin));
 		ANNs.get(index).first = true;
-		//System.out.println("ANN " + ANNs.get(index) + " devient le first !");
 		// Pas la peine d'enlever le first, car il sera remove
 	}
 
@@ -362,11 +359,9 @@ public class Specie {
 		if (!ret) { // Pas identiques
 			for (ConnectionGene connection : connectionGenes) {
 				if (connection.getInnovation() == connectionGene.getInnovation()) {
-					//System.out.println("connection n° : " + connection + " == connectionGene n° : " + connectionGene);
 					ret = true;
 				}
 				else if (connection.getInto() == connectionGene.getInto() && connection.getOut() == connectionGene.getOut()) {
-					//System.out.println("connection inputs/outputs : " + connection + " == connectionGene inputs/outputs : " + connectionGene);
 					ret = true;
 				}
 			}

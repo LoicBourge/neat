@@ -4,7 +4,6 @@ import Genome.ConnectionGene;
 import java.util.ArrayList;
 import java.util.Collections;
 
-// Classe principale de l'algorithme Neat, qui va lancer l'algorithme, retirer les espèces stables et faire la distanciation.
 
 /*
  * Classe principale de l'algorithme Neat, qui va lancer l'algorithme, retirer les
@@ -307,22 +306,22 @@ public class Neat {
 	}
 
 	// Obtenir le nombre d'enfants que chaque espèce doit faire
-	private ArrayList<Integer> getNumChildPerSpecies(int nbreEnfants) {
-		ArrayList<Integer> enfantsParEspeces = new ArrayList<>();
+	private ArrayList<Integer> getNumChildPerSpecies(int numChild) {
+		ArrayList<Integer> childrenPerSpecies = new ArrayList<>();
 		int total = 0;
 
 		for (int i = 0; i < Species.size(); i++) {
-			int nbre = nbreEnfants / Species.size();
+			int nbre = numChild / Species.size();
 			total += nbre;
-			enfantsParEspeces.add(nbre);
+			childrenPerSpecies.add(nbre);
 		}
 
 		// À cause des arrondis, il se peut qu'on n'ait pas exactement le nombre d'enfants à faire, donc on les rajoute
-		if (total < nbreEnfants) {
-			int nbre = nbreEnfants - total;
+		if (total < numChild) {
+			int nbre = numChild - total;
 
-			for (int i = 0; i < enfantsParEspeces.size(); i++) {
-				enfantsParEspeces.set(i, enfantsParEspeces.get(i) + 1);
+			for (int i = 0; i < childrenPerSpecies.size(); i++) {
+				childrenPerSpecies.set(i, childrenPerSpecies.get(i) + 1);
 				nbre--;
 
 				if (nbre <= 0) {
@@ -331,6 +330,6 @@ public class Neat {
 			}
 		}
 
-		return enfantsParEspeces;
+		return childrenPerSpecies;
 	}
 }

@@ -6,10 +6,11 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
 
-// Classe main du programme.
 
+/*
+ * Classe contenant le main, va générer les espèces, les générations et les réseaux de neurones.
+ */
 public class Main {
-	// Paramètres constants principaux
 	static int nbInputs = 2;
 	static int nbOutputs = 1;
 	static int nbMaxHiddenNodes = 100000;
@@ -26,6 +27,10 @@ public class Main {
 
 	static int tauxMutation = 20; // Taux de mutation en %
 
+
+/*
+ * Fonction principale, va générer les espèces, les générations et les réseaux de neurones.
+ */
 	public static void main(String[] args) {
 
 
@@ -79,7 +84,10 @@ public class Main {
 		}
 	}
 
-	// Méthode statique permettant de générer une population de départ
+	/*
+	 * Génère une population de départ, avec une espèce, et une population de taille
+	 * fixe, sans connexions
+	 */
 	public static Specie GenerateBeginPopulation(int numberOfGenomes) {
 		ArrayList<ANN> anns = new ArrayList<>();
 

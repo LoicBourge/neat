@@ -17,7 +17,7 @@ public class ANN implements Comparable<ANN> {
 	public ArrayList<Innovation> Innovations;
 	public float[] outputs;
 	public double fit;
-	public boolean first; // Est-ce que c'est le premier membre de l'espèce ou non
+	public boolean first; // Si c'est le premier génome de la génération
 
 	/*
 	 * Constructeur de la classe ANN, prend en paramètre le nombre de noeuds cachés

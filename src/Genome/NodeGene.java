@@ -18,6 +18,10 @@ public class NodeGene {
 
 	private final ArrayList<ConnectionGene> incomingCon = new ArrayList<>();
 
+	/*
+	 * Constructeur de la classe NodeGene, prend en paramètre le n° d'innovation, le
+	 * type et le numéro de layer.
+	 */
 	public NodeGene(float value, NodeType type, int numero) {
 		super();
 		this.value = value;

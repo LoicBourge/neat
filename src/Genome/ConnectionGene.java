@@ -1,6 +1,5 @@
 package Genome;
 
-// Classe étant la connexion entre des noeuds, contenant son entrée et sortie, le n° d'innovation, son poids et s'il est activé ou non. Est un gène du génome avec NodeGene.
 
 /*
  * Classe étant la connexion entre des noeuds, contenant son entrée et sortie, le
