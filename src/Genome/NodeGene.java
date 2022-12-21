@@ -3,54 +3,53 @@ package Genome;
 import java.util.ArrayList;
 
 /*
-*Cette classe représente un gène de noeud qui contient son n° d'innovation, son type (input, output, hidden) et son numéro de layer.
+ *Cette classe représente un gène de noeud qui contient son n° d'innovation, son type (input, output, hidden) et son numéro de layer.
  */
 public class NodeGene {
-	public enum NodeType {
-		Input,
-		Output,
-		Hidden
-	}
+    private final NodeType type;
+    private final int numero;
+    private final ArrayList<ConnectionGene> incomingCon = new ArrayList<>();
+    private float value;
 
-	private float value;
-	private final NodeType type;
-	private final int numero;
+    /*
+     * Constructeur de la classe NodeGene, prend en paramètre le n° d'innovation, le
+     * type et le numéro de layer.
+     */
+    public NodeGene(float value, NodeType type, int numero) {
+        super();
+        this.value = value;
+        this.type = type;
+        this.numero = numero;
+    }
 
-	private final ArrayList<ConnectionGene> incomingCon = new ArrayList<>();
+    public float getValue() {
+        return value;
+    }
 
-	/*
-	 * Constructeur de la classe NodeGene, prend en paramètre le n° d'innovation, le
-	 * type et le numéro de layer.
-	 */
-	public NodeGene(float value, NodeType type, int numero) {
-		super();
-		this.value = value;
-		this.type = type;
-		this.numero = numero;
-	}
+    public void setValue(float value) {
+        this.value = value;
+    }
 
-	public float getValue() {
-		return value;
-	}
+    public NodeType getType() {
+        return type;
+    }
 
-	public void setValue(float value) {
-		this.value = value;
-	}
+    public int getNumero() {
+        return numero;
+    }
 
-	public NodeType getType() {
-		return type;
-	}
+    public ArrayList<ConnectionGene> getIncomingCon() {
+        return incomingCon;
+    }
 
-	public int getNumero() {
-		return numero;
-	}
+    @Override
+    public String toString() {
+        return "(" + numero + " = " + type + " " + value + " connections : " + incomingCon.size() + ")";
+    }
 
-	public ArrayList<ConnectionGene> getIncomingCon() {
-		return incomingCon;
-	}
-
-	@Override
-	public String toString() {
-		return "(" + numero + " = " + type + " " + value + " connections : " + incomingCon.size() + ")";
-	}
+    public enum NodeType {
+        Input,
+        Output,
+        Hidden
+    }
 }
