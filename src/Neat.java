@@ -128,32 +128,27 @@ public class Neat {
 	public static double fitXor(double[] outputs) {
 		double fitness = 0;
 
-		// Si 0 valeurs justes : fit = 0
-		// 1 = 25
-		// 2 = 50
-		// 3 = 75
-		// 4 = 100
-
 		for (int i = 0; i < targetOutput.length; i++) {
 
 
 			double calc = Math.abs(outputs[i] - (double) targetOutput[i]);
 
-			if (calc <= 0.01) { // Ex : 0.5 - 0 = 0.5 <= 0.01 ?
+			if (calc <= 0.01) {
 				fitness += 25;
 			}
-			else if (calc <= 0.2) { // Ex : 0.5 - 0 = 0.5 <= 0.2 ?
+			else if (calc <= 0.2) {
 				fitness += 12.5;
 			}
-			else if (calc <= 0.3) { // Ex : 0.5 - 0 = 0.5 <= 0.3 ?
+			else if (calc <= 0.3) {
 				fitness += 8.33;
 			}
-			else if (calc <= 0.4) { // Ex : 0.5 - 0 = 0.5 <= 0.4 ?
+			else if (calc <= 0.4) {
 				fitness += 6.25;
 			}
-			else if (calc <= 0.5) { // Ex : 0.5 - 0 = 0.5 <= 0.5 ?
+			else if (calc <= 0.5) {
 				fitness += 5.0;
 			}
+			//fitness2 +=  (1 - Math.abs((double) targetOutput[i] - outputs[i]));
 		}
 
 		return fitness;
@@ -164,10 +159,7 @@ public class Neat {
 		ArrayList<Specie> aRetirer = new ArrayList<>();
 
 		for (Specie specie : Species) {
-			if (specie.getStableCounter() >= nbMaxStable && getBestFitSpecie() != specie) { // Garder un compteur pour chaque espèce, si l'espèce ne s'est pas améliorée après X générations et ne possède pas le meilleur fit, la retirer
-				aRetirer.add(specie);
-			}
-			else if (specie.getANNs().size() == 0) { // Retirer les espèces vides
+			if (specie.getStableCounter() >= nbMaxStable && getBestFitSpecie() != specie) {
 				aRetirer.add(specie);
 			}
 		}
@@ -183,8 +175,6 @@ public class Neat {
 	// W = différence de poids moyenne sur les gènes communs
 	// Va répartir tous les enfants dans les bonnes espèces ou va en créer des nouvelles
 	private void distanciation(ArrayList<ANN> enfants) {
-		// Dans le site, il était mis de calculer à partir de ceux de l'ancienne génération, mais je fais avec la génération actuelle, afin que si plusieurs enfants sont similaires, ils aillent dans la même espèce au lieu de recréer plusieurs espèces
-
 		ArrayList<Boolean> stables = new ArrayList<>();
 
 		for (int i = 0; i < Species.size(); i++) {
@@ -201,8 +191,6 @@ public class Neat {
 
 				// On teste la distance avec le premier membre de l'espèce (son créateur)
 				ANN firstMembre = espece.getFirstANN();
-
-
 
 				int n = espece.getLargerANN();
 

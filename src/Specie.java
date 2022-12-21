@@ -108,7 +108,6 @@ public class Specie {
 	}
 	/*
 	 * Calcul des fits de chaque ANN de l'espèce
-	 * @param fitnessFunction Fonction de fitness
 	 */
 	public double[] computeFit() {
 		fits = new double[ANNs.size()];
@@ -162,8 +161,6 @@ public class Specie {
 		for (int i = 0; i < ANNs.size(); i++) {
 			adjustedFitness[i] /= ANNs.size();
 		}
-
-		//System.out.println("Fits ajustés : " + Arrays.toString(adjustedFitness));
 	}
 
 	// Trier les génomes (ANNs) selon leurs fits (du meilleur au pire)
@@ -390,7 +387,6 @@ public class Specie {
 				return ann;
 			}
 		}
-
 		return null; // Le premier membre de l'espèce ne se fera jamais remove
 	}
 
@@ -406,7 +402,7 @@ public class Specie {
 
 		for (int i = 0; i < numChildren; i++) {
 
-			// On prend 2 génomes au hasard (on peut très bien prendre 2x le même enfant (mitose on va dire))
+			// On prend 2 génomes au hasard
 			int rand1 = rand.nextInt(ANNs.size());
 			int rand2 = rand.nextInt(ANNs.size());
 
@@ -432,7 +428,7 @@ public class Specie {
 
 			// Pour les gènes ayant le même n° d'innovation (communs aux 2 parents), on tire le gène à garder au hasard parmi les 2 parents
 			for (ConnectionGene[] connectionGenes : genomesCommuns) {
-				if (rand.nextInt(100) < 50) { // Tirer au hasard le gène entre les 2 parents
+				if (rand.nextBoolean()) { // Tirer au hasard le gène entre les 2 parents
 					if (checkConnectionGeneIdenticalExists(genomeChild, connectionGenes[0])) { // N'ajouter la connection que s'il n'existe pas déjà dans le génome
 						genomeChild.add(connectionGenes[0]); // Parent 1
 					}
@@ -477,7 +473,7 @@ public class Specie {
 			}
 			else {
 				// Si les fits des parents sont identiques, on tire le gène à garder au hasard parmi les 2 parents
-				if (rand.nextInt(100) < 50) { // Tirer au hasard le gène entre les 2 parents
+				if (rand.nextBoolean()) { // Tirer au hasard le gène entre les 2 parents
 					for (ConnectionGene connection : genomesDisjointsParent1) {
 						if (checkConnectionGeneIdenticalExists(genomeChild, connection)) {
 							genomeChild.add(connection);
@@ -614,7 +610,7 @@ public class Specie {
 						// nextFloat donne une valeur entre 0 et 1 du coup * 10 pour avoir une valeur en 0 et 10
 						weight = rand.nextFloat() * 10;
 
-						if (rand.nextInt(100) < 50) { // Une chance sur deux qu'il soit en négatif valeur entre -10 et 10
+						if (rand.nextBoolean()) { // Une chance sur deux qu'il soit en négatif valeur entre -10 et 10
 							weight -= weight * 2;
 						}
 
@@ -626,7 +622,7 @@ public class Specie {
 						// nextFloat donne une valeur entre 0 et 1 du coup * 10 pour avoir une valeur en 0 et 10
 						weight = rand.nextFloat() * 10;
 
-						if (rand.nextInt(100) < 50) { // Une chance sur deux qu'il soit en négatif valeur entre -10 et 10
+						if (rand.nextBoolean()) { // Une chance sur deux qu'il soit en négatif valeur entre -10 et 10
 							weight -= weight * 2;
 						}
 
@@ -642,9 +638,6 @@ public class Specie {
 
 						break;
 					case 2: // Changer le poids d'une connexion
-
-						// On fait comme dans l'exemple génétique du prof (avec size) : 1 chance sur 2 de totalement changer la valeur, ou augmenter/diminuer la valeur d'une certaine valeur flottante aléatoire entre 1 et 5
-
 						if (genomeChild.size() > 0) {
 							gene = rand.nextInt(genomeChild.size());
 
@@ -652,14 +645,14 @@ public class Specie {
 								// nextFloat donne une valeur entre 0 et 1 du coup * 10 pour avoir une valeur en 0 et 10
 								weight = rand.nextFloat() * 10;
 
-								if (rand.nextInt(100) < 50) { // Une chance sur deux qu'il soit en négatif valeur entre -10 et 10
+								if (rand.nextBoolean()) { // Une chance sur deux qu'il soit en négatif valeur entre -10 et 10
 									weight -= weight * 2;
 								}
 							}
 							else {
 								weight = genomeChild.get(gene).getWeight();
 
-								if (rand.nextInt(2) == 0) {
+								if (rand.nextBoolean()) {
 									weight += rand.nextFloat() * rand.nextInt(5); // On incrémente d'une valeur flottante aléatoire entre 0 et 5
 
 									if (weight > 10) {
@@ -689,8 +682,6 @@ public class Specie {
 						break;
 				}
 			}
-
-
 			// On peut donc créer l'enfant
 			ANN child = new ANN(genomeChild, genome1.getNbInputs(), genome1.getNbOutputs(), genome1.getNbMaxHiddenNodes());
 			children.add(child);
